@@ -15,19 +15,6 @@ def main():
     zip_path = download_os.download_image_zip()
     img_path = download_os.unzip_image(zip_path)
 
-    # Create a copy of the original image and configure it with autologin
-    autologin_img = img_path.replace(".img", "-autologin.img")
-    shutil.copyfile(img_path, autologin_img)
-    customise_os.run_edits(
-        autologin_img, needs_login=True, autologin=True, ssh=False, expand_fs=False
-    )
-
-    # Create a copy of the original image and configure it autologin + ssh
-    autologin_ssh_img = img_path.replace(".img", "-autologin-ssh.img")
-    shutil.copyfile(img_path, autologin_ssh_img)
-    customise_os.run_edits(
-        autologin_ssh_img, needs_login=True, autologin=True, ssh=True, expand_fs=False
-    )
 
     # Copy original image and configure it autologin + ssh + expanded filesystem
     autologin_ssh_fs_img = img_path.replace(".img", "-autologin-ssh-expanded.img")
