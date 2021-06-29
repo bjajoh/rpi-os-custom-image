@@ -11,8 +11,7 @@ Currently the following images are being created:
 - Raspberry Pi OS Lite + autologin enabled
 - Raspberry Pi OS Lite + autologin + ssh enabled
 - Raspberry Pi OS Lite + autologin + ssh + resized image (+1GB)
-- Raspberry Pi OS Lite + autologin + ssh + resized image (+1GB) + specific app dependencies
-    - This is a special image for doing CI testing on a personal project
+- Raspberry Pi OS Lite + autologin + ssh + resized image (+1GB) + specific nimbus dependencies
 
 These customised images have been generated from different versions of
 Raspbian/Raspberry Pi OS and all can be found and downloaded from the
