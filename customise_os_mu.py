@@ -29,7 +29,7 @@ def install_mu_apt_dependencies(child):
     child.sendline("sudo apt-get install -y python3-pyqt5.qtchart")
     child.expect_exact(customise_os.BASH_PROMPT)
     child.sendline(
-        "sudo apt-get install -y libxmlsec1-dev libxml2 libxml2-dev libxkbcommon-x11-0 libatlas-base-dev"
+        "sudo apt-get install -y libxmlsec1-dev libxml2 libxml2-dev libxkbcommon-x11-0 libatlas-base-dev libcurl4-openssl-dev libmicrohttpd-dev libjsoncpp-dev libjsonrpccpp-dev libargtable2-dev libhiredis-dev libi2c-dev libssl-dev libboost-all-dev"
     )
     child.expect_exact(customise_os.BASH_PROMPT)
     child.sendline("df -h")
