@@ -24,24 +24,6 @@ jobs:
         run: pip install -r requirements.txt
       - name: Download official image and create custom images
         run: python run_all.py
-      - name: Upload autologin image
-        uses: actions/upload-artifact@v2
-        with:
-          name: raspberry-pi-os-autologin-img
-          path: rpiosimage/*-autologin.img
-          if-no-files-found: error
-      - name: Upload autologin + ssh image
-        uses: actions/upload-artifact@v2
-        with:
-          name: raspberry-pi-os-autologin-ssh-img
-          path: rpiosimage/*-autologin-ssh.img
-          if-no-files-found: error
-      - name: Upload autologin + ssh + expanded image
-        uses: actions/upload-artifact@v2
-        with:
-          name: raspberry-pi-os-autologin-ssh-expanded-img
-          path: rpiosimage/*-autologin-ssh-expanded.img
-          if-no-files-found: error
       - name: Upload Mu image
         uses: actions/upload-artifact@v2
         with:
@@ -59,69 +41,6 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
         shell: bash
-
-      - name: Download autologin OS image
-        uses: actions/download-artifact@v2
-        id: download-zip-autologin
-        with:
-          name: raspberry-pi-os-autologin-img
-          path: autologin
-      - name: Zip image again
-        run: |
-          cd ${{steps.download-zip-autologin.outputs.download-path}}
-          ls
-          zip -r raspberry-pi-os-lite-${{ steps.get_version.outputs.VERSION }}-autologin.zip ./*
-      - name: Upload autologin OS image as release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{github.event.release.upload_url}}
-          asset_path: ${{steps.download-zip-autologin.outputs.download-path}}/raspberry-pi-os-lite-${{ steps.get_version.outputs.VERSION }}-autologin.zip
-          asset_name: raspberry-pi-os-lite-buster-${{ steps.get_version.outputs.VERSION }}-autologin.zip
-          asset_content_type: application/zip
-
-      - name: Download autologin + ssh OS image
-        uses: actions/download-artifact@v2
-        id: download-zip-autologin-ssh
-        with:
-          name: raspberry-pi-os-autologin-ssh-img
-          path: autologin-ssh
-      - name: Zip image again
-        run: |
-          cd ${{steps.download-zip-autologin-ssh.outputs.download-path}}
-          ls
-          zip -r raspberry-pi-os-lite-${{ steps.get_version.outputs.VERSION }}-autologin-ssh.zip ./*
-      - name: Upload autologin + ssh OS image as release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{github.event.release.upload_url}}
-          asset_path: ${{steps.download-zip-autologin-ssh.outputs.download-path}}/raspberry-pi-os-lite-${{ steps.get_version.outputs.VERSION }}-autologin-ssh.zip
-          asset_name: raspberry-pi-os-lite-buster-${{ steps.get_version.outputs.VERSION }}-autologin-ssh.zip
-          asset_content_type: application/zip
-
-      - name: Download autologin + ssh + expanded OS image
-        uses: actions/download-artifact@v2
-        id: download-zip-autologin-ssh-expanded
-        with:
-          name: raspberry-pi-os-autologin-ssh-expanded-img
-          path: autologin-ssh-expanded
-      - name: Zip image again
-        run: |
-          cd ${{steps.download-zip-autologin-ssh-expanded.outputs.download-path}}
-          ls
-          zip -r raspberry-pi-os-lite-${{ steps.get_version.outputs.VERSION }}-autologin-ssh-expanded.zip ./*
-      - name: Upload autologin + ssh OS image as release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{github.event.release.upload_url}}
-          asset_path: ${{steps.download-zip-autologin-ssh-expanded.outputs.download-path}}/raspberry-pi-os-lite-${{ steps.get_version.outputs.VERSION }}-autologin-ssh-expanded.zip
-          asset_name: raspberry-pi-os-lite-buster-${{ steps.get_version.outputs.VERSION }}-autologin-ssh-expanded.zip
-          asset_content_type: application/zip
 
       - name: Download Mu image
         uses: actions/download-artifact@v2
