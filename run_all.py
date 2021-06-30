@@ -7,7 +7,7 @@ import shutil
 
 import download_os
 import customise_os
-import customise_os_mu
+import customise_os_nimbus
 
 
 def main():
@@ -23,10 +23,10 @@ def main():
        autologin_ssh_fs_img, needs_login=True, autologin=True, ssh=True, expand_fs=True
     )
 
-    # Copy expanded image (last one created) and install Mu dependencies
-    mu_img = img_path.replace(".img", "-mu.img")
-    shutil.copyfile(autologin_ssh_fs_img, mu_img)
-    customise_os_mu.run_edits(mu_img, needs_login=False)
+    # Copy expanded image (last one created) and install Nimbus dependencies
+    nimbus_img = img_path.replace(".img", "-nimbus.img")
+    shutil.copyfile(autologin_ssh_fs_img, nimbus_img)
+    customise_os_nimbus.run_edits(nimbus_img, needs_login=False)
 
 
 if __name__ == "__main__":
