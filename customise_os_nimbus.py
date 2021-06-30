@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Run a Raspberry PI OS image with Docker to install Mu Editor specific
+Run a Raspberry PI OS image with Docker to install Nimbus-Userland specific
 apt packages.
 """
 import sys
@@ -11,7 +11,7 @@ import pexpect
 import customise_os
 
 
-def install_mu_apt_dependencies(child):
+def install_nimbus_apt_dependencies(child):
     child.sendline("df -h")
     child.expect_exact(customise_os.BASH_PROMPT)
     child.sendline("sudo apt-get update -qq")
@@ -28,7 +28,7 @@ def install_mu_apt_dependencies(child):
 
 
 def run_edits(img_path, needs_login=True):
-    print("Staring Raspberry Pi OS Mu customisation: {}".format(img_path))
+    print("Staring Raspberry Pi OS Nimbus customisation: {}".format(img_path))
 
     try:
         child, docker_container_name = customise_os.launch_docker_spawn(img_path)
@@ -36,7 +36,7 @@ def run_edits(img_path, needs_login=True):
             customise_os.login(child)
         else:
             child.expect_exact(customise_os.BASH_PROMPT)
-        install_mu_apt_dependencies(child)
+        install_nimbus_apt_dependencies(child)
         # We are done, let's exit
         child.sendline("sudo shutdown now")
         child.expect(pexpect.EOF)
