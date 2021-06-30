@@ -27,8 +27,8 @@ jobs:
       - name: Upload Nimbus image
         uses: actions/upload-artifact@v2
         with:
-          name: raspberry-pi-os-mu
-          path: rpiosimage/*-mu.img
+          name: raspberry-pi-os-nimbus
+          path: rpiosimage/*-nimbus.img
           if-no-files-found: error
 
   release-asset:
