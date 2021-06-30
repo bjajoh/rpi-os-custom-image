@@ -24,7 +24,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Download official image and create custom images
         run: python run_all.py
-      - name: Upload Mu image
+      - name: Upload Nimbus image
         uses: actions/upload-artifact@v2
         with:
           name: raspberry-pi-os-mu
@@ -42,23 +42,23 @@ jobs:
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
         shell: bash
 
-      - name: Download Mu image
+      - name: Download Nimbus image
         uses: actions/download-artifact@v2
-        id: download-zip-mu
+        id: download-zip-nimbus
         with:
-          name: raspberry-pi-os-mu
-          path: mu
+          name: raspberry-pi-os-nimbus
+          path: nimbus
       - name: Zip image again
         run: |
-          cd ${{steps.download-zip-mu.outputs.download-path}}
+          cd ${{steps.download-zip-nimbus.outputs.download-path}}
           ls
-          zip -r raspberry-pi-os-lite-${{ steps.get_version.outputs.VERSION }}-mu.zip ./*
-      - name: Upload Mu image as release asset
+          zip -r raspberry-pi-os-lite-${{ steps.get_version.outputs.VERSION }}-nimbus.zip ./*
+      - name: Upload Nimbus image as release asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{github.event.release.upload_url}}
-          asset_path: ${{steps.download-zip-mu.outputs.download-path}}/raspberry-pi-os-lite-${{ steps.get_version.outputs.VERSION }}-mu.zip
-          asset_name: raspberry-pi-os-lite-buster-${{ steps.get_version.outputs.VERSION }}-mu.zip
+          asset_path: ${{steps.download-zip-nimbus.outputs.download-path}}/raspberry-pi-os-lite-${{ steps.get_version.outputs.VERSION }}-nimbus.zip
+          asset_name: raspberry-pi-os-lite-buster-${{ steps.get_version.outputs.VERSION }}-nimbus.zip
           asset_content_type: application/zip
