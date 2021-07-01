@@ -147,8 +147,8 @@ def run_edits(img_path, needs_login=True, autologin=None, ssh=None, expand_fs=No
 
     # Increase the image by 1 GB using qemu-img
     if expand_fs or (expand_fs is None and EXPAND_FS):
-        print("Expanding {} image +2GB:".format(img_path))
-        print(pexpect.run("qemu-img resize {} +2G".format(img_path)))
+        print("Expanding {} image +1G:".format(img_path))
+        print(pexpect.run("qemu-img resize {} +1G".format(img_path)))
 
     try:
         child, docker_container_name = launch_docker_spawn(img_path)
