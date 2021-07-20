@@ -18,10 +18,14 @@ def install_nimbus_apt_dependencies(child):
     child.sendline("sudo apt-get install -y git cmake")
     child.expect_exact(customise_os.BASH_PROMPT)
     child.sendline(
-        "sudo apt-get install -y libxmlsec1-dev libxml2 libxml2-dev libxkbcommon-x11-0 libatlas-base-dev libcurl4-openssl-dev libmicrohttpd-dev libjsoncpp-dev libjsonrpccpp-dev libargtable2-dev libhiredis-dev libi2c-dev libssl-dev libboost-all-dev"
+        "sudo apt-get install -y libxmlsec1-dev libxml2 libxml2-dev libxkbcommon-x11-0 libatlas-base-dev libcurl4-openssl-dev libmicrohttpd-dev libjsoncpp-dev libjsonrpccpp-dev libargtable2-dev libhiredis-dev libi2c-dev i2c-tools libssl-dev libboost-all-dev"
     )
     child.expect_exact(customise_os.BASH_PROMPT, timeout=15*60)
     child.sendline("echo 'dtoverlay=irs1125' | sudo tee -a /boot/config.txt")
+    child.expect_exact(customise_os.BASH_PROMPT)
+    child.sendline("echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt")
+    child.expect_exact(customise_os.BASH_PROMPT)
+    child.sendline("echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt")
     child.expect_exact(customise_os.BASH_PROMPT)
     child.sendline("echo 'deb http://apt.pieye.org/debian/ nimbus-stable main' | sudo tee -a /etc/apt/sources.list")
     child.expect_exact(customise_os.BASH_PROMPT)
